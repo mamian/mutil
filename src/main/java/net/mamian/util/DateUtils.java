@@ -70,7 +70,14 @@ public class DateUtils {
         return true;
     }
 
-    //获取rawOffset1时区的hours1点，所对应的rawOffset2的整点
+    /**
+     * 获取rawOffset1时区的hours1点，所对应的rawOffset2的整点
+     *
+     * @param hours1
+     * @param rawOffset1
+     * @param rawOffset2
+     * @return
+     */
     public static int getHoursByRawOffset(int hours1, int rawOffset1, int rawOffset2) {
         int result = (rawOffset2 - rawOffset1) / (60 * 60 * 1000) + hours1;
         result = result < 0 ? result + 24 : result;
@@ -116,6 +123,7 @@ public class DateUtils {
     }
 
     /**
+     * 字符串转日期
      *
      * @param dateStr
      * @param dateFormat
@@ -134,6 +142,7 @@ public class DateUtils {
     }
 
     /**
+     * 日期转字符串
      *
      * @param date
      * @param dateFormat
@@ -150,9 +159,29 @@ public class DateUtils {
 
     /**
      * 是否是周末
+     *
+     * @param date
+     * @return
      * */
     public static boolean isWeekend(LocalDate date){
         return date.dayOfWeek().get()>5;
     }
 
+    /**
+     * 是否为中国法定假日
+     *
+     * 元旦：1.1
+     * 春节：除夕~正月初六
+     * 清明：农历清明当日
+     * 五一：5.1
+     * 端午：
+     * 中秋：
+     * 国庆：10.1~10.7
+     *
+     * @param date
+     * @return
+     * */
+    public static boolean isCnHoliday(LocalDate date){
+        return false;
+    }
 }
