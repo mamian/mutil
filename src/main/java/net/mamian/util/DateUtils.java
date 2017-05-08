@@ -182,6 +182,33 @@ public class DateUtils {
      * @return
      * */
     public static boolean isCnHoliday(LocalDate date){
+        switch (date.getMonthOfYear()){
+            case 1://元旦
+                if(1==date.getDayOfMonth()){
+                    return true;
+                }
+                break;
+            case 5://五一
+                if(1==date.getDayOfMonth()){
+                    return true;
+                }
+                break;
+            case 10://国庆
+                if(date.getDayOfMonth()<8){
+                    return true;
+                }
+                break;
+        }
+
+        //春节
+
+        //清明
+
+        //端午
+
+        //中秋
+
         return false;
     }
+
 }
