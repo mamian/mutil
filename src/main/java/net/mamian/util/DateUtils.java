@@ -170,13 +170,13 @@ public class DateUtils {
     /**
      * 是否为中国法定假日
      *
-     * 元旦：1.1
-     * 春节：除夕~正月初六
-     * 清明：清明当日
-     * 五一：5.1
-     * 端午：
-     * 中秋：
-     * 国庆：10.1~10.7
+     * 元旦：阳历 1.1
+     * 春节：农历 除夕~正月初六
+     * 清明：阳历 清明当日
+     * 五一：阳历 5.1
+     * 端午：农历 5.5
+     * 中秋：农历 8.15
+     * 国庆：阳历 10.1~10.7
      *
      * @param date 阳历日期
      * @return
@@ -214,32 +214,31 @@ public class DateUtils {
         LocalDate lunar = convertLunar(date);
         switch (lunar.getMonthOfYear()){
             case 1://正月
-                if(date.getDayOfMonth()<7){
+                if(lunar.getDayOfMonth()<7){
                     return true;
                 }
                 break;
             case 8://中秋
-                if(15==date.getDayOfMonth()){
+                if(15==lunar.getDayOfMonth()){
                     return true;
                 }
                 break;
             case 5://端午
+                if(5==lunar.getDayOfMonth()){
+                    return true;
+                }
                 break;
             case 12://除夕
+                if(30==lunar.getDayOfMonth() || 29==lunar.getDayOfMonth() && 1 == lunar.plusDays(1).getDayOfMonth()){
+                    return true;
+                }
                 break;
+            default:
+                return false;
         }
-        //春节
-
-        //端午
-
-        //中秋
 
         return false;
     }
-
-    /**
-     * 计算节气
-     * */
 
     /**
      * 阳历转农历
@@ -248,6 +247,7 @@ public class DateUtils {
      * @return
      * */
     private static LocalDate convertLunar(LocalDate solar){
+        
         return solar;
     }
 
