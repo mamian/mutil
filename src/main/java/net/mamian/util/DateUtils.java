@@ -172,19 +172,30 @@ public class DateUtils {
      *
      * 元旦：1.1
      * 春节：除夕~正月初六
-     * 清明：农历清明当日
+     * 清明：清明当日
      * 五一：5.1
      * 端午：
      * 中秋：
      * 国庆：10.1~10.7
      *
-     * @param date
+     * @param date 阳历日期
      * @return
      * */
     public static boolean isCnHoliday(LocalDate date){
         switch (date.getMonthOfYear()){
             case 1://元旦
                 if(1==date.getDayOfMonth()){
+                    return true;
+                }
+                break;
+            case 4://清明
+                int year2 = date.getYear()%100;
+                double day = (year2*0.2422+4.81)-(year2/4);
+                int dayInt = (int)day;
+                if(day-dayInt>=0.5){
+                    ++dayInt;
+                }
+                if(dayInt == date.getDayOfMonth()){
                     return true;
                 }
                 break;
@@ -200,9 +211,24 @@ public class DateUtils {
                 break;
         }
 
+        LocalDate lunar = convertLunar(date);
+        switch (lunar.getMonthOfYear()){
+            case 1://正月
+                if(date.getDayOfMonth()<7){
+                    return true;
+                }
+                break;
+            case 8://中秋
+                if(15==date.getDayOfMonth()){
+                    return true;
+                }
+                break;
+            case 5://端午
+                break;
+            case 12://除夕
+                break;
+        }
         //春节
-
-        //清明
 
         //端午
 
@@ -210,6 +236,10 @@ public class DateUtils {
 
         return false;
     }
+
+    /**
+     * 计算节气
+     * */
 
     /**
      * 阳历转农历
