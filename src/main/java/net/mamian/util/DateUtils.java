@@ -247,8 +247,17 @@ public class DateUtils {
      * @return
      * */
     private static LocalDate convertLunar(LocalDate solar){
-        
         return solar;
+    }
+
+    /**
+     * 农历转阳历
+     *
+     * @param lunar 农历
+     * @return
+     * */
+    private static LocalDate convertSolar(LocalDate lunar){
+        return lunar;
     }
 
 }
