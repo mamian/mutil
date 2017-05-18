@@ -211,7 +211,7 @@ public class DateUtils {
                 break;
         }
 
-        LocalDate lunar = convertLunar(date);
+        LocalDate lunar = solar2lunar(date);
         switch (lunar.getMonthOfYear()){
             case 1://正月
                 if(lunar.getDayOfMonth()<7){
@@ -240,13 +240,14 @@ public class DateUtils {
         return false;
     }
 
+
     /**
      * 阳历转农历
      *
      * @param solar 阳历
      * @return
      * */
-    private static LocalDate convertLunar(LocalDate solar){
+    private static LocalDate solar2lunar(LocalDate solar){
         return solar;
     }
 
@@ -256,7 +257,7 @@ public class DateUtils {
      * @param lunar 农历
      * @return
      * */
-    private static LocalDate convertSolar(LocalDate lunar){
+    private static LocalDate lunar2solar(LocalDate lunar){
         return lunar;
     }
 
