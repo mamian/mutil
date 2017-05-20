@@ -291,6 +291,16 @@ public class DateUtils {
     };
 
     /**
+     * 传回农历 year年闰哪个月 1-12 , 没闰传回 0
+     *
+     * @param year 将要计算的年份
+     * @return 传回农历 year年闰哪个月1-12, 没闰传回 0
+     */
+    private static int leapMonthOfLunar(int year) {
+        return (int) ((LUNAR_INFO[year - MIN_YEAR] & 0xF00000)) >> 20;
+    }
+
+    /**
      * 阳历转农历
      *
      * @param solar 阳历
