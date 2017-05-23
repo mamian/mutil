@@ -294,6 +294,16 @@ public class DateUtils {
      * 传回农历year年month月的总天数
      * @param year 要计算的年份
      * @param month        要计算的月
+     * @return 传回天数
+     */
+    final public static int daysInMonth(int year, int month) {
+        return daysInMonth(year, month, false);
+    }
+
+    /**
+     * 传回农历year年month月的总天数
+     * @param year 要计算的年份
+     * @param month        要计算的月
      * @param leap 当月是否是闰月
      * @return 传回天数，如果闰月是错误的，返回0.
      */
