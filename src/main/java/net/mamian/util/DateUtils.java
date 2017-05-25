@@ -2,6 +2,7 @@ package net.mamian.util;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.TimeZone;
 import org.apache.commons.lang3.StringUtils;
 import org.joda.time.LocalDate;
@@ -289,6 +290,64 @@ public class DateUtils {
             0x069349,0x7729BD,0x06AA51,0x0AD546,0x54DABA,0x04B64E,0x0A5743,0x452738,0x0D264A,0x8E933E,/*2081-2090*/
             0x0D5252,0x0DAA47,0x66B53B,0x056D4F,0x04AE45,0x4A4EB9,0x0A4D4C,0x0D1541,0x2D92B5          /*2091-2099*/
     };
+
+    /**
+     * 将公历日期转换为农历日期，且标识是否是闰月
+     *
+     * @param year
+     * @param month
+     * @param monthDay
+     * @return 返回公历日期对应的农历日期，year0，month1，day2，leap3
+     */
+    public static final int[] solarToLunar(int year, int month, int monthDay) {
+        int[] lunarDate = new int[4];
+        Date baseDate = new GregorianCalendar(1900, 0, 31).getTime();
+        Date objDate = new GregorianCalendar(year, month - 1, monthDay).getTime();
+        int offset = (int) ((objDate.getTime() - baseDate.getTime()) / 86400000L);
+
+        // 用offset减去每农历年的天数计算当天是农历第几天
+        // iYear最终结果是农历的年份, offset是当年的第几天
+        int iYear, daysOfYear = 0;
+        for (iYear = MIN_YEAR; iYear <= MAX_YEAR && offset > 0; iYear++) {
+            daysOfYear = daysInLunarYear(iYear);
+            offset -= daysOfYear;
+        }
+        if (offset < 0) {
+            offset += daysOfYear;
+            iYear--;
+        }
+
+        // 农历年份
+        lunarDate[0] = iYear;
+
+        int leapMonth = leapMonthOfLunar(iYear); // 闰哪个月,1-12
+        boolean isLeap = false;
+        // 用当年的天数offset,逐个减去每月（农历）的天数，求出当天是本月的第几天
+        int iMonth, daysOfMonth = 0;
+        for (iMonth = 1; iMonth <= 13 && offset > 0; iMonth++) {
+            daysOfMonth = daysInLunarMonth(iYear, iMonth);
+            offset -= daysOfMonth;
+        }
+        // 当前月超过闰月，要校正
+        if (leapMonth != 0 && iMonth > leapMonth) {
+            --iMonth;
+
+            if (iMonth == leapMonth) {
+                isLeap = true;
+            }
+        }
+        // offset小于0时，也要校正
+        if (offset < 0) {
+            offset += daysOfMonth;
+            --iMonth;
+        }
+
+        lunarDate[1] = iMonth;
+        lunarDate[2] = offset + 1;
+        lunarDate[3] = isLeap ? 1 : 0;
+
+        return lunarDate;
+    }
 
     /**
      * 传回农历year年month月的总天数
