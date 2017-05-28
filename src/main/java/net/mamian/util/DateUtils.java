@@ -547,5 +547,6 @@ public class DateUtils {
     /**
      * 计算节气
      * */
+    public static SolarTerm solarTerm(LocalDate solar){}
 
 }
