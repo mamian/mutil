@@ -4,6 +4,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.TimeZone;
+
+import net.mamian.constant.JieQi;
 import org.apache.commons.lang3.StringUtils;
 import org.joda.time.LocalDate;
 
@@ -547,6 +549,8 @@ public class DateUtils {
     /**
      * 计算节气
      * */
-    public static SolarTerm solarTerm(LocalDate solar){}
+    public static int solarTerm(LocalDate solar){
+        return JieQi.bailu;
+    }
 
 }
