@@ -549,6 +549,7 @@ public class DateUtils {
     /**
      * 计算节气
      * */
+    @Deprecated
     public static int solarTerm(LocalDate solar){
         return JieQi.bailu;
     }
