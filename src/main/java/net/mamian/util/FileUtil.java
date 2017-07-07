@@ -15,6 +15,18 @@ public class FileUtil {
 
     private static final Logger log = LoggerFactory.getLogger(FileUtil.class);
 
-    
+    /**
+     * 获取文件的扩展名
+     * 
+     * @param pathName
+     * @return 
+     */
+    public static String getExtensionName(String pathName) {
+        int index = pathName.lastIndexOf("\\.");
+        if (index > 0) {
+            return pathName.substring(index);
+        }
+        return null;
+    }
 
 }
