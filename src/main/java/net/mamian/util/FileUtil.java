@@ -16,6 +16,21 @@ public class FileUtil {
     private static final Logger log = LoggerFactory.getLogger(FileUtil.class);
 
     /**
+     * 向目标文件desFile写数据
+     *
+     * 只要操作os.write即可向文件写入数据
+     * 注意最后os.close()
+     *
+     * @param desFile
+     * @return
+     * @throws java.io.IOException
+     * */
+    public static OutputStream getFileOutStream(String desFile) throws IOException {
+        OutputStream os = new FileOutputStream(desFile);
+        return os;
+    }
+
+    /**
      * 从文件读取数据到InputStream中
      *
      * 只要操作is.read即可读取到数据
